@@ -310,7 +310,287 @@
                 }
             }
         },
+        "/pages/{id}": {
+            "put": {
+                "tags": [
+                    "Pages"
+                ],
+                "operationId": "updatePage",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        },
+                        "description": "ID da página a ser atualizada"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Novo Título da Página"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "<p>Conteúdo atualizado em HTML.</p>"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "published"
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "content",
+                                    "status"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Página atualizada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Página atualizada com sucesso"
+                                        },
+                                        "page": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Novo Título da Página"
+                                                },
+                                                "content": {
+                                                    "type": "string",
+                                                    "example": "<p>Conteúdo atualizado em HTML.</p>"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "published"
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-04T16:30:00.000000Z"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-10-30T14:00:00.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Página não encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Página não encontrada"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Não autorizado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Pages"
+                ],
+                "operationId": "deletePage",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        },
+                        "description": "ID da página a ser excluída"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Página excluída com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Página excluída com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Página não encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Página não encontrada"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Não autorizado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "getUsers",
+                "summary": "Listar todos os usuários",
+                "description": "Retorna uma lista com todos os usuários cadastrados. Requer autenticação Bearer.",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuários retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Nome do Usuário 1"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "usuario1@example.com"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-01-01T12:00:00.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-01-01T12:00:00.000000Z"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado - o token de autenticação Bearer está ausente ou inválido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "Users"
@@ -353,74 +633,288 @@
                                 ]
                             }
                         }
-                    },
-                    "responses": {
-                        "201": {
-                            "description": "Usuário criado com sucesso",
-                            "content": {
-                                "application/json": {
-                                    "schema": {
-                                        "type": "object",
-                                        "properties": {
-                                            "message": {
-                                                "type": "string",
-                                                "example": "Usuário criado com sucesso"
-                                            },
-                                            "user": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "name": {
-                                                        "type": "string",
-                                                        "example": "Seu Nome"
-                                                    },
-                                                    "email": {
-                                                        "type": "string",
-                                                        "example": "email@example.com"
-                                                    },
-                                                    "email_verified_at": {
-                                                        "type": "string",
-                                                        "nullable": true,
-                                                        "example": null
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string",
-                                                        "format": "date-time",
-                                                        "example": "2024-11-04T04:12:09.000000Z"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string",
-                                                        "format": "date-time",
-                                                        "example": "2024-11-04T14:28:57.000000Z"
-                                                    }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário criado com sucesso"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
                                                 },
-                                                "required": [
-                                                    "id",
-                                                    "name",
-                                                    "email",
-                                                    "created_at",
-                                                    "updated_at"
-                                                ]
-                                            }
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Seu Nome"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "email@example.com"
+                                                },
+                                                "email_verified_at": {
+                                                    "type": "string",
+                                                    "nullable": true,
+                                                    "example": null
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-04T04:12:09.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-04T14:28:57.000000Z"
+                                                }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "name",
+                                                "email",
+                                                "created_at",
+                                                "updated_at"
+                                            ]
                                         }
                                     }
                                 }
                             }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erro ao criar usuário"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "updateUser",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
                         },
-                        "400": {
-                            "description": "Erro ao criar usuário",
-                            "content": {
-                                "application/json": {
-                                    "schema": {
-                                        "type": "object",
-                                        "properties": {
-                                            "message": {
-                                                "type": "string",
-                                                "example": "Erro ao criar usuário"
-                                            }
+                        "description": "ID do usuário a ser atualizado"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Novo Nome"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "novomail@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "nova_senha"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "nova_senha"
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "email"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário atualizado com sucesso"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Novo Nome"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "novomail@example.com"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-04T16:15:00.000000Z"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-10-30T10:00:00.000000Z"
+                                                }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "name",
+                                                "email",
+                                                "updated_at",
+                                                "created_at"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário não encontrado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Não autorizado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "deleteUser",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        },
+                        "description": "ID do usuário a ser excluído"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário excluído com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário excluído com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário não encontrado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Não autorizado"
                                         }
                                     }
                                 }
@@ -507,5 +1001,19 @@
                 }
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Gerar token"
+        },
+        {
+            "name": "Pages",
+            "description": "Gerenciamento de páginas"
+        },
+        {
+            "name": "Users",
+            "description": "Gerenciamento de usuários"
+        }
+    ]
 }
