@@ -24,8 +24,13 @@ class AuthController extends Controller
         if ($user && Hash::check($request->password, $user->password)) {
             // Autenticação bem-sucedida
             Auth::login($user); // Faz login manualmente
+
+            // Gerar um token para o usuário autenticado
+            $token = $user->createToken('API_token123')->plainTextToken;
+
             return response()->json([
                 'message' => 'Login bem-sucedido',
+                'token' => $token,
                 'user' => $user,
             ], 200);
         }
