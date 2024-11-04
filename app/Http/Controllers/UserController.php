@@ -10,8 +10,9 @@ class UserController extends Controller
 {
     public function store(Request $request)
     {
+        // Verifica se o email já está em uso
         $savedUser = User::where('email', $request->email)->first();
-        if($savedUser) {
+        if ($savedUser) {
             return response()->json([
                 'message' => 'Email já está em uso.',
             ], 409);
@@ -20,15 +21,15 @@ class UserController extends Controller
         // Validação dos dados de entrada
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email', // Verifica se o email já existe
-            'password' => 'required|string|min:8|confirmed', // Confirmação de senha
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         // Criação do usuário
         $createUser = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password), // Criptografa a senha
+            'password' => Hash::make($request->password),
         ]);
 
         return response()->json([
