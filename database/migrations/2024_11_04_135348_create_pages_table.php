@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
+            $table->string('project_key')->default('default');
             $table->text('content')->nullable();
             $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
             $table->unsignedBigInteger('user_id');

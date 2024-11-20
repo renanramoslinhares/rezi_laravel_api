@@ -8,19 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
-    public function index()
+    public function index($project_key)
     {
         // Recupera todas as páginas da tabela
         $pages = Page::all();
+        $pages = Page::where('project_key', $project_key)->get();
 
-        // Retorna a resposta como JSON
         return response()->json($pages);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $project_key)
     {
         // Validação dos dados de entrada
         $request->validate([
+            'project_key' => 'required|string',
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'status' => 'required|in:draft,published,archived', // valida os status permitidos
@@ -28,6 +29,7 @@ class PageController extends Controller
 
         // Criação da página
         $page = Page::create([
+            'project_key' => $project_key,
             'title' => $request->title,
             'content' => $request->content,
             'status' => $request->status,

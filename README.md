@@ -64,3 +64,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+==========================================
+## Alimentando pages exemple
+
+INSERT INTO `pages` (`id`, `title`, `content`, `status`, `user_id`, `created_at`, `updated_at`) VALUES
+(5, 'About Us', '<h1>About Us</h1><p>Welcome to our website.</p>', 'published', 1, '2024-11-04 13:55:29', '2024-11-04 13:55:29'),
+(6, 'Contact', '<h1>Contact Us</h1><p>Please reach out for more info.</p>', 'draft', 1, '2024-11-04 13:55:29', '2024-11-04 13:55:29'),
+(7, 'Services', '<h1>Our Services</h1><p>We offer a variety of services.</p>', 'published', 1, '2024-11-04 13:55:29', '2024-11-04 13:55:29'),
+(8, 'Privacy Policy', '<h1>Privacy Policy</h1><p>Your privacy is important to us.</p>', 'archived', 1, '2024-11-04 13:55:29', '2024-11-04 13:55:29'),
+(9, 'Título da Página', '<p>Conteúdo da página em HTML.</p>', 'draft', 1, '2024-11-04 15:11:50', '2024-11-04 15:11:50');
